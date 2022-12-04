@@ -12,17 +12,17 @@ package_size = 1
 #package_size = 300
 
 inventories = 12
-order_sizes = np.random.randint(max_packages, size=(max_packages*inventories))
+order_sizes = np.random.randint(max_packages, size=(max_packages*inventories//6))
 
 if package_size > 1:
-        orders = np.random.randint(package_size - np.random.uniform(package_size / 3, package_size), size=(max_packages*inventories))
+        orders = np.random.randint((package_size * max_packages), size=(max_packages*inventories//6))
 elif package_size == 1:
         orders = np.random.randint(max_packages, size=(max_packages*inventories//6))
 
-reorder_points = orders - order_sizes[:len(orders)]
+reorder_points = orders - order_sizes[:]
 
 length = 13.
-num_replications = 5
+num_replications = 3
 
 help(mdl.run_experiments)
 """Args:
