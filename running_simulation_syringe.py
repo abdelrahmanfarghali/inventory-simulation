@@ -2,17 +2,27 @@ import model as mdl
 import numpy as np
 import pandas as pd
 
-max_packages = 6
+max_packages = 20
+package_size = 1
+
+#max_packages = 5
+#package_size = 48
+
+#max_packages = 5
+#package_size = 300
+
 inventories = 12
-package_size = 45
 order_sizes = np.random.randint(max_packages, size=(max_packages*inventories))
-minimum_individual = 6
-maximum_individual = 60
-orders = np.random.randint(package_size - np.random.uniform(minimum_individual, maximum_individual), size=order_sizes[:32])
-reorder_points = orders
+
+if package_size > 1:
+        orders = np.random.randint(package_size - np.random.uniform(package_size / 3, package_size), size=(max_packages*inventories))
+elif package_size == 1:
+        orders = np.random.randint(max_packages, size=(max_packages*inventories//6))
+
+reorder_points = orders - order_sizes[:len(orders)]
 
 length = 13.
-num_replications = 15
+num_replications = 5
 
 help(mdl.run_experiments)
 """Args:
